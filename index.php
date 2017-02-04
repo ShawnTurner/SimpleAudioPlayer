@@ -20,7 +20,7 @@
             <div class="pl"></div>
             <div class="title"></div>
             <div class="artist"></div>
-            <div class="cover"></div>
+            <div class="cover">Autoplay<input type="checkbox" class="autoplay" checked></div>
             <div class="controls">
                 <div class="play"></div>
                 <div class="pause"></div>
@@ -30,14 +30,27 @@
             <div class="volume"></div>
             <div class="tracker"></div>
         </div>
-        <ul class="playlist hidden">
-            <li audiourl="01.mp3" cover="cover1.jpg" artist="Artist 1">01.mp3</li>
+        <ul class="playlist">
+		<!--
+		    <li audiourl="01.mp3" cover="cover1.jpg" artist="Artist 1">01.mp3</li>
             <li audiourl="02.mp3" cover="cover2.jpg" artist="Artist 2">02.mp3</li>
             <li audiourl="03.mp3" cover="cover3.jpg" artist="Artist 3">03.mp3</li>
             <li audiourl="04.mp3" cover="cover4.jpg" artist="Artist 4">04.mp3</li>
             <li audiourl="05.mp3" cover="cover5.jpg" artist="Artist 5">05.mp3</li>
             <li audiourl="06.mp3" cover="cover6.jpg" artist="Artist 6">06.mp3</li>
             <li audiourl="07.mp3" cover="cover7.jpg" artist="Artist 7">07.mp3</li>
+		-->
+		<?php
+			$album = htmlspecialchars($_GET["album"]);
+			
+			// id3 support would be cool, but lets keep things really simple
+			
+			$songs = glob("music/" . $album . "/" . "*.mp3");
+			foreach($songs as $song){				
+				$displaySong = htmlentities(basename($song));				
+				echo '<li audiourl="' . $song . '" cover="" artist="">' . $displaySong . '</li>' . "\n";
+			}
+        ?>
         </ul>
     </div>
 </body>

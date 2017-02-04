@@ -23,23 +23,48 @@ jQuery(document).ready(function() {
 
         $('.player .title').text(title);
         $('.player .artist').text(artist);
-        $('.player .cover').css('background-image','url(data/' + cover+')');;
+        //$('.player .cover').css('background-image','url(data/' + cover+')');;
 
-        song = new Audio('data/' + url);
+        song = new Audio();
+		
+		song.addEventListener('loadeddata', function() {
+			// set the tracker once the song is loaded
+			tracker.slider("option", "max", song.duration);			
+		}, false);
+		song.src = url;				
 
         // timeupdate event listener
         song.addEventListener('timeupdate',function (){
             var curtime = parseInt(song.currentTime, 10);
-            tracker.slider('value', curtime);
+            tracker.slider('value', curtime);			
         });
 
+		song.addEventListener("ended", function(){
+			// if autoplay, keep going
+			if($('.autoplay').prop('checked')){
+			
+				// fwd click
+				var next = $('.playlist li.active').next();
+				if (next.length == 0) {
+					next = $('.playlist li:first-child');
+					initAudio(next);
+					
+					// dont autoplay the whole album
+				}else{
+					initAudio(next);
+					playAudio();				
+				}
+			}
+		});
+		
         $('.playlist li').removeClass('active');
         elem.addClass('active');
     }
     function playAudio() {
         song.play();
 
-        tracker.slider("option", "max", song.duration);
+		// moved to loadeddata event for great justice
+		// tracker.slider("option", "max", song.duration);	      
 
         $('.play').addClass('hidden');
         $('.pause').addClass('visible');
@@ -75,7 +100,7 @@ jQuery(document).ready(function() {
         if (next.length == 0) {
             next = $('.playlist li:first-child');
         }
-        initAudio(next);
+        initAudio(next);		
     });
 
     // rewind click
@@ -92,16 +117,17 @@ jQuery(document).ready(function() {
     });
 
     // show playlist
+	/*
     $('.pl').click(function (e) {
         e.preventDefault();
 
         $('.playlist').fadeIn(300);
     });
-
+*/
     // playlist elements - click
     $('.playlist li').click(function () {
         stopAudio();
-        initAudio($(this));
+        initAudio($(this));		
     });
 
     // initialization - first element in playlist
