@@ -128,6 +128,10 @@ jQuery(document).ready(function() {
     $('.playlist li').click(function () {
         stopAudio();
         initAudio($(this));		
+		
+		if($('.autoplay').prop('checked')){
+			playAudio();
+		}
     });
 
     // initialization - first element in playlist
