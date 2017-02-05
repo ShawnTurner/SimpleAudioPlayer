@@ -26,12 +26,18 @@ jQuery(document).ready(function() {
         //$('.player .cover').css('background-image','url(data/' + cover+')');;
 
         song = new Audio();
+		if($('.autoplay').prop('checked') && $('.playlist li.active').next().length > 0){
+			song.autoplay = true;
+			$('.play').addClass('hidden');
+			$('.pause').addClass('visible');
+		}
 		
 		song.addEventListener('loadeddata', function() {
 			// set the tracker once the song is loaded
 			tracker.slider("option", "max", song.duration);			
 		}, false);
 		song.src = url;				
+		
 
         // timeupdate event listener
         song.addEventListener('timeupdate',function (){
@@ -40,20 +46,17 @@ jQuery(document).ready(function() {
         });
 
 		song.addEventListener("ended", function(){
+			stopAudio();
+			
 			// if autoplay, keep going
 			if($('.autoplay').prop('checked')){
 			
 				// fwd click
 				var next = $('.playlist li.active').next();
-				if (next.length == 0) {
-					next = $('.playlist li:first-child');
-					initAudio(next);
-					
-					// dont autoplay the whole album
-				}else{
-					initAudio(next);
-					playAudio();				
+				if (next.length == 0) {					
+					next = $('.playlist li:first-child');														
 				}
+				initAudio(next);
 			}
 		});
 		
@@ -74,7 +77,7 @@ jQuery(document).ready(function() {
 
         $('.play').removeClass('hidden');
         $('.pause').removeClass('visible');
-    }
+    }	
 
     // play click
     $('.play').click(function (e) {
@@ -128,10 +131,6 @@ jQuery(document).ready(function() {
     $('.playlist li').click(function () {
         stopAudio();
         initAudio($(this));		
-		
-		if($('.autoplay').prop('checked')){
-			playAudio();
-		}
     });
 
     // initialization - first element in playlist
