@@ -1,9 +1,12 @@
+<?php
+    include 'config.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />    
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>Simple Audio Player</title>
+    <title>$title</title>
 	<!-- HTML attributed to http://www.script-tutorials.com/html5-audio-player-with-playlist/ -->
     <!-- add styles and scripts -->
     <link href="css/styles.css" rel="stylesheet" type="text/css" />
@@ -17,7 +20,8 @@
 </head>
 <body>
     <header>
-        <h2>Simple Audio Player</h2>
+        <h2><?=$title?></h2>
+        <h3 style="text-align:center"><?=$message?></h3>
     </header>
     <div class="example">
         <div class="player">

@@ -30,7 +30,7 @@ jQuery(document).ready(function() {
 		if($('.autoplay').prop('checked') && $('.playlist li.active').next().length > 0){
 			song.autoplay = true;
 			$('.play').addClass('hidden');
-			$('.pause').addClass('visible');
+			$('.pause').addClass('visible');            
 		}
 		
 		song.addEventListener('loadeddata', function() {
