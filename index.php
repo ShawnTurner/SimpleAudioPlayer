@@ -32,6 +32,7 @@
                 <div class="fwd"></div>
             </div>
             <div class="volume"></div>
+            <div class="time"></div>
             <div class="tracker"></div>
         </div>      
         

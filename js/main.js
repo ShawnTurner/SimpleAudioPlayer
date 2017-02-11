@@ -14,6 +14,7 @@ jQuery(document).ready(function() {
     var song;
     var tracker = $('.tracker');
     var volume = $('.volume');
+    var songLength = "";    // formatted song length 
 
     function initAudio(elem) {
         var url = elem.attr('audiourl');
@@ -34,7 +35,9 @@ jQuery(document).ready(function() {
 		
 		song.addEventListener('loadeddata', function() {
 			// set the tracker once the song is loaded
-			tracker.slider("option", "max", song.duration);			
+			tracker.slider("option", "max", song.duration);		
+            songLength = formatSeconds(song.duration);
+            $('.time').text(formatSeconds(0) + ' / ' + songLength);	
 		}, false);
 		song.src = url;				
 		
@@ -42,7 +45,10 @@ jQuery(document).ready(function() {
         // timeupdate event listener
         song.addEventListener('timeupdate',function (){
             var curtime = parseInt(song.currentTime, 10);
-            tracker.slider('value', curtime);			
+            tracker.slider('value', curtime);	
+            
+            // display time progress
+            $('.time').text(formatSeconds(curtime) + ' / ' + songLength);		
         });
 
 		song.addEventListener("ended", function(){
@@ -78,6 +84,11 @@ jQuery(document).ready(function() {
         $('.play').removeClass('hidden');
         $('.pause').removeClass('visible');
     }	
+    function formatSeconds(s){
+        var date = new Date(null);
+        date.setSeconds(s);
+        return date.toISOString().substr(11, 8);		
+    }
 
     // play click
     $('.play').click(function (e) {

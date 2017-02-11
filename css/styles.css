@@ -145,6 +145,15 @@ header a, a:visited {
     top: 126px;
     width: 285px;
 }
+.time{
+    height: 15px;    
+    left:20px;
+    position: absolute;
+    bottom: 6px;
+    width: 285px;
+    color:beige;    
+    text-align:right;
+}
 .ui-slider-range {
     background: transparent url("../images/spr.png") no-repeat scroll 5px -222px;
     height: 100%;
