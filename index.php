@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8" />    
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>$title</title>
+    <title><?=$title?></title>
 	<!-- HTML attributed to http://www.script-tutorials.com/html5-audio-player-with-playlist/ -->
     <!-- add styles and scripts -->
     <link href="css/styles.css" rel="stylesheet" type="text/css" />
