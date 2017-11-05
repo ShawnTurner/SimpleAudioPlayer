@@ -8,8 +8,7 @@
  * Copyright 2012, Script Tutorials
  * http://www.script-tutorials.com/
  */
-jQuery(document).ready(function() {
-
+jQuery(document).ready(function() {	
     // inner variables
     var song;
     var tracker = $('.tracker');
@@ -29,8 +28,12 @@ jQuery(document).ready(function() {
         song = new Audio();
 		if($('.autoplay').prop('checked') && $('.playlist li.active').next().length > 0){
 			song.autoplay = true;
-			$('.play').addClass('hidden');
-			$('.pause').addClass('visible');            
+			// This event will only be triggered if setting the autoplay attribute to true works.             
+			$(song).on('play', function() {
+				// only update the control UI if we actually play				
+				$('.play').addClass('hidden');
+				$('.pause').addClass('visible');            
+			});
 		}
 		
 		song.addEventListener('loadeddata', function() {
