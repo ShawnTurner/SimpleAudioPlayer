@@ -14,6 +14,7 @@ jQuery(document).ready(function() {
     var tracker = $('.tracker');
     var volume = $('.volume');
     var songLength = "";    // formatted song length 
+	song = new Audio();
 
     function initAudio(elem) {
         var url = elem.attr('audiourl');
@@ -24,8 +25,7 @@ jQuery(document).ready(function() {
         $('.player .title').text(title);
         $('.player .artist').text(artist);
         //$('.player .cover').css('background-image','url(data/' + cover+')');;
-
-        song = new Audio();
+        
 		if($('.autoplay').prop('checked') && $('.playlist li.active').next().length > 0){
 			song.autoplay = true;
 			// This event will only be triggered if setting the autoplay attribute to true works.             
@@ -82,7 +82,7 @@ jQuery(document).ready(function() {
         $('.pause').addClass('visible');
     }
     function stopAudio() {
-        song.pause();
+        //song.pause();
 
         $('.play').removeClass('hidden');
         $('.pause').removeClass('visible');
@@ -103,7 +103,7 @@ jQuery(document).ready(function() {
     // pause click
     $('.pause').click(function (e) {
         e.preventDefault();
-
+		song.pause();
         stopAudio();
     });
 
